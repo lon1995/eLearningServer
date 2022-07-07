@@ -90,6 +90,12 @@ async function run() {
         return res.status(500).json({ msg: err.message });
       }
     });
+    app.delete("/quiz/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await quizCollection.deleteOne(query);
+      res.json(result);
+    });
     app.get("/quiz/instructor/:email", async (req, res) => {
       try {
         const { email } = req.params;
